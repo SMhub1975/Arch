@@ -12,11 +12,11 @@ locale-gen
 
 ln -sf /usr/share/zoneinfo/America/Argentina/Buenos_Aires /etc/localtime
 
-pacman --noconfirm --needed -S broadcom-wl networkmanager xf86-video-intel xorg-server xorg-xinit xorg-xbacklight xorg-xsetroot xorg-setxkbmap
+pacman --noconfirm --needed -S networkmanager xf86-video-intel xorg-server xorg-xinit xorg-xbacklight xorg-xsetroot xorg-setxkbmap
 
 systemctl enable NetworkManager
 
-pacman --noconfirm --needed -S grub && grub-install --target=i386-pc /dev/sda && grub-mkconfig -o /boot/grub/grub.cfg
+pacman --noconfirm --needed -S grub && grub-install --target=i386-pc /dev/sda
 
 pacman --noconfirm --needed -S pamixer pulseaudio pulsemixer vim git gvfs ntfs-3g gnu-free-fonts dmenu
 
