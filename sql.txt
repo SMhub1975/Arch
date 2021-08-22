@@ -1,0 +1,66 @@
+﻿sudo pacman -S mariadb
+
+sudo mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+
+sudo systemctl start mysqld
+
+sudo systemctl enable mysqld ########### start on boot
+
+mysql_secure_installation
+
+sudo mysql -u root -p
+
+mysql -u root -p bibliotecas < bibliotecas.sql ### desde la shell y como usuario root
+
+show databases;
+
+create database bibliotecas;
+
+use bibliotecas;
+
+drop database bibliotecas;
+
+show tables;
+
+describe table base;
+
+CREATE TABLE `base` (`id_bca` int(11) NOT NULL, `Nº de Bca` varchar(20) DEFAULT NULL, `Nombre` varchar(50) DEFAULT NULL, `Dirección` varchar(50) DEFAULT NULL, `Localidad` varchar(50) DEFAULT NULL, `Partido` varchar(50) DEFAULT NULL);
+
+INSERT INTO `base` (`id_bca`, `Nº de Bca`, `Nombre`, `Dirección`, `Localidad`, `Partido`) VALUES
+(1, '001', 'Asoc. Prot. Bca. José de San Martín', '47 nº 510', 'La Plata', 'La Plata');
+
+SELECT * FROM `base` INNER JOIN `fichero` ON `base`.`Nº de Bca` = `fichero`.`Nº de Bca`;
+
+SELECT * FROM `fichero` WHERE `Nº de Bca` LIKE "001";
+
+SELECT * FROM bibliotecas.fichero WHERE número IN (001);
+
+SELECT `Nº de Bca`, `Nombre`, `Partido`, `16`, `17`, `18`, `19`, `20`, `Total de rendiciones adeudadas` FROM `base`;
+
+SELECT `id_bca`, `Nº de Bca`, `Nombre`, `Dirección`, `Localidad`, `Partido`, `Código postal`, `Teléfono`, `Mail Biblioteca`, `nº CONABIP`, `Presidente`, `Mail Presidente`, `Secretario`, `Mail Secretario`, `Tesorero`, `Mail Tesorero`, `Bibliotecario`, `Mail Bibliotecario`, `Registro de Firmas fecha` FROM `base` WHERE `Nº de Bca` LIKE "001";
+
+SELECT `Id_rendiciones`, `Nº de Bca`, `Rendición de`, `2016`, `2017`, `2018`, `2019`, `2020` FROM `fichero` WHERE `Nº de Bca` LIKE "001";
+
+SELECT `Id_rendiciones`, `Nº de Bca`, `Rendición de`, `2016`, `2017`, `2018`, `2019`, `2020` FROM `fichero`;
+
+SELECT * FROM base WHERE bibliotecario is null;
+
+SELECT `id_bca`, `Nº de Bca`, `Nombre`, `Situación laboral del bibliotecario`, `Modo de invertir la subvención`, `Observaciones`, `16`, `17`, `18`, `19`, `20`, `Total de rendiciones adeudadas` FROM `base` WHERE `Nº de Bca` LIKE "001";
+
+SELECT `id_bca`, `Nombre`, `Rendición de`, `2016`, `2017`, `2018`, `2019`, `2020`, `16`, `17`, `18`, `19`, `20`, `Total de rendiciones adeudadas`, `Situación laboral del bibliotecario`, `Modo de invertir la subvención`, `Observaciones` FROM `base` INNER JOIN `fichero` ON `base`.`Nº de Bca` = `fichero`.`Nº de Bca`;
+
+SELECT `Id_rendiciones`, `id_bca`, `Nombre`, `Rendición de`, `2016`, `2017`, `2018`, `2019`, `2020`, `16`, `17`, `18`, `19`, `20`, `Total de rendiciones adeudadas`, `Situación laboral del bibliotecario`, `Modo de invertir la subvención`, `Observaciones` FROM `base` INNER JOIN `fichero` ON `base`.`Nº de Bca` = `fichero`.`Nº de Bca`;
+
+CREATE TABLE base_copia SELECT * FROM base;
+CREATE TABLE fichero_copia SELECT * FROM fichero;
+
+CREATE TABLE base_copia SELECT * FROM bibliotecas.base;
+CREATE TABLE fichero_copia SELECT * FROM bibliotecas.fichero;
+
+SELECT `id_bca`, `Nº de Bca`, `Nombre`, `Situación laboral del bibliotecario`, `Modo de invertir la subvención`, `Observaciones`, `16`, `17`, `18`, `19`, `20`, `Total de rendiciones adeudadas` FROM `base` WHERE `Estado del pago de la subvención mensual` LIKE "SUSPENDIDA";
+
+SELECT `id_bca`, `Id_bca`, `Nombre`, `Observaciones`, `16`, `17`, `18`, `19`, `20`, `2020`, `Total de rendiciones adeudadas` FROM `base` INNER JOIN `fichero` ON `base`.`Nº de Bca` = `fichero`.`Nº de Bca` WHERE `Estado del pago de la subvención mensual` LIKE "SUSPENDIDA";
+
+SELECT * FROM `fichero` WHERE `2020` LIKE "SUSPENDIDA";
+
+SELECT `Id_rendiciones`, `Nº de Bca`, `Rendición de`, `2015`, `2016`, `2017`, `2018`, `2019`, `2020` FROM `fichero` WHERE `Nº de Bca` IN ( 008, 013, 015, 065, 077, 081, 084, 085, 092, 101, 103, 108, 118, 123, 130, 148, 153, 163, 167, 172, 173, 176, 181, 193, 210, 212, 239, 264, 266, 280, 283, 285, 297, 300, 305, 307, 316, 327, 363, 365, 375, 392, 404, 406, 409, 417, 418, 422, 426, 428, 437, 445, 464, 468, 488, 490, "Esc. nº 05", "Esc. nº 17", "Esc. nº 18", "Esc. nº 19", "Esc. nº 20", "Mun. Nº 1006" );

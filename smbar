@@ -1,0 +1,65 @@
+#!/bin/sh
+
+### SMhub1975_bar ###
+
+
+#memory () {
+#	printf "MEM:"$(cat /proc/meminfo | grep 'MemAvailable' | cut -c 18-24)"  "
+#}
+
+#memory () {
+#	printf "MEM:"$(cat /proc/meminfo | grep 'MemAvailable' | cut -c 19-24)" "  ## eeepc ##
+#}
+
+memory (){
+	printf "MEM:"$(($(grep -m1 'MemAvailable:' /proc/meminfo | awk '{print $2}') / 1024))"  "
+}
+
+temp (){
+	printf "TEM:"$(head -c 2 /sys/class/thermal/thermal_zone0/temp)ºC"  "
+}
+
+network () { 
+	printf "NET:"$(nmcli connection show --active | grep -n 2 | cut -c 3-16)
+}
+
+#network () {
+#	printf "NET:"$(nmcli -t -f active,ssid dev wifi | grep 'sí' | cut -c 5-20)"  "  ## opcion 2 ##
+#}
+
+#network () { 
+#	printf "NET:"$(nmcli connection show --active | grep -n 2 | cut -c 3-13)" "  ## eeepc ##
+#}
+
+bright () {
+	printf "  BRI:"$(cat /sys/class/backlight/intel_backlight/brightness)"  "
+}
+
+#bright () {
+#	printf "BRI:"$(cat /sys/class/backlight/eeepc/brightness)" "  ## eeepc ##
+#}
+
+volumen () {
+	printf "VOL:"$(pamixer --get-volume-human | tr -d '%')"  "
+}
+
+battery () {
+	printf "BAT:"$(cat /sys/class/power_supply/BAT1/capacity)"  "
+}
+
+keyboard () {
+	printf "KEY:"$(setxkbmap -query | awk '/layout/{print $2}')"  "
+}
+
+day () {
+	printf "DIA:"$(date +"%F")"  "
+}
+
+hs () {
+	printf "HS:"$(date +"%R")"  "
+}
+
+while true; do
+	xsetroot -name "$(memory)$(temp)$(network)$(bright)$(volumen)$(battery)$(keyboard)$(day)$(hs)"
+	sleep 1 
+done
