@@ -1,0 +1,125 @@
+GNOME:
+
+gsettings reset org.gnome.shell app-picker-layout
+
+----------------------------------------------------------------------------------------------------------
+
+DWM:
+
+sudo apt install make git gcc libx11-dev libxft-dev libxinerama-dev xorg
+git clone https://git.suckless.org/dwm
+sudo make clean install
+xrandr --listmonitors 
+LVDS-1 (Notebook_Lenovo_G580)
+xrandr --output LVDS-1 --brightness 0.5
+
+----------------------------------------------------------------------------------------------------------
+
+WIFI:
+
+Broadcom Limited BCM4352 802.11ac Wireless Network Adapter [14e4:43b1] (rev 03)
+
+Supported Broadcom wireless network cards: 
+BCM4311-, BCM4312-, BCM4313-, BCM4321-, BCM4322-, BCM43142-, BCM43224-, BCM43225-, BCM43227-, BCM43228-, BCM4331-, BCM4360-, and BCM4352-
+
+lspci -nn | grep Network
+
+sudo apt-get install wireless-tools
+sudo apt-get install network-manager-gnome
+sudo apt-get install wpasupplicant
+
+sudo nano /etc/apt/sources.list
+(main contrib non-free)
+
+sudo apt-get update
+
+sudo apt-get dist-upgrade
+
+reboot the computer
+
+sudo apt-get install linux-image-$(uname -r|sed 's,[^-]*-[^-]*-,,') linux-headers-$(uname -r|sed 's,[^-]*-[^-]*-,,') broadcom-sta-dkms
+
+sudo modprobe -r b44 b43 b43legacy ssb brcmsmac bcma
+
+sudo modprobe wl
+
+----------------------------------------------------------------------------------------------------------
+
+STEAM:
+
+sudo dpkg --add-architecture i386
+
+sudo apt update
+
+Add Non-Free ---------------
+
+sudo apt update
+
+sudo apt install steam
+
+----------------------------------------------------------------------------------------------------------
+
+XAMPP:
+
+chmod 755 xampp-linux-*-installer.run
+
+sudo ./xampp-linux-*-installer.run
+
+sudo /opt/lampp/lampp start
+
+sudo /opt/lampp/lampp stop
+
+----------------------------------------------------------------------------------------------------------
+
+ODBC:
+
+sudo apt-get install iodbc
+
+sudo iodbcadm-gtk
+
+----------------------------------------------------------------------------------------------------------
+
+TOR:
+
+(no entrar a root)
+
+./start-tor-browser.desktop 
+
+----------------------------------------------------------------------------------------------------------
+
+MINECRAFT:
+
+apt install flatpak
+
+apt install gnome-software-plugin-flatpak
+
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+---- Restart ----
+
+flatpak install flathub com.mojang.Minecraft
+
+flatpak run com.mojang.Minecraft
+
+----------------------------------------------------------------------------------------------------------
+
+ETCHER:
+
+echo "deb https://deb.etcher.io stable etcher" | sudo tee /etc/apt/sources.list.d/balena-etcher.list
+
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 379CE192D401AB61
+
+sudo apt-get update
+
+sudo apt-get install balena-etcher-electron
+
+
+Uninstall Etcher
+
+sudo apt-get remove balena-etcher-electron
+
+sudo rm /etc/apt/sources.list.d/balena-etcher.list
+
+sudo apt-get update
+
+----------------------------------------------------------------------------------------------------------
